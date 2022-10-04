@@ -1,0 +1,14 @@
+* {
+    background: rgb(253, 236, 167);
+}
+
+
+.navigation {
+    padding: 1vmin;
+}
+
+#tabs {
+    display: inline-flex;
+    border : 6px solid black;
+
+}
