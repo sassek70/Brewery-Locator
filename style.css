@@ -1,18 +1,123 @@
-* {
-    background: rgb(253, 236, 167);
+body {
+    background-image: linear-gradient(rgba(255, 191, 0, 0.05), rgb(255, 191, 0.5));
+    height: 100vh;
 }
 
+#welcome {
+    margin: auto;
+    width: 50%;
+}
 
 .navigation {
     padding: 1vmin;
+    border: 2px solid black;
 }
 
 #tabs {
     display: inline-flex;
-    border : 6px solid black;
+    border : 1px solid black;
 
 }
 
 .buttons {
-    background-color: blue;
+    margin: 4px;
+    
+}
+
+.buttons:hover {
+    cursor: pointer;
+    background-color: burlywood;
+}
+
+#notes {
+    border: 1px solid black;
+    max-width: 400px;
+    min-height: 100px;
+}
+
+ul {
+    display: flexbox;
+    max-height: 120px;
+    max-width: 300px;
+    overflow-y:auto;
+    border: 2px solid black;
+}
+
+ol {
+    display: flexbox;
+    max-height: 200px;
+    max-width: 300px;
+    overflow-y:auto;
+    border: 2px solid black;
+}
+
+li {
+    padding: 5px;
+}
+
+li:hover {
+    background-color: rgb(165, 122, 42);
+    cursor: pointer;
+}
+
+#search-form {
+    display: inline-flexbox;
+    padding: 10px;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-label {
+    display: block;
+    font-size: larger;
+    font-weight:bold;
+    text-decoration: underline;
+    padding: 3px;
+    margin: auto;
+    text-align: center;
+}
+
+#search-direction {
+    display: block;
+    font-weight:bold;
+    font-style:italic;
+    padding: 3px;
+    margin: auto;
+    text-align: center;
+}
+
+#search-types {
+    display: block;
+    font-weight:bold;
+    font-style: italic;
+    padding: 3px;
+    margin: auto;
+    text-align: center;
+}
+
+#input-container {
+    display: flex;
+    align-items: center;
+    
+}
+
+/* #search-option {
+    margin:auto;
+    position: relative;
+    text-align: center;
+}
+
+#search-input {
+    margin: auto;
+    position: relative;
+}
+
+#search-button {
+    margin: auto;
+
+} */
+
+#notes {
+    min-width: 345px;
 }
