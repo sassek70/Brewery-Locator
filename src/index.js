@@ -21,7 +21,9 @@ const getRandomBrewery = () => {
     .then(res => res.json())
     .then(randomBrewery => {
         console.log(randomBrewery)
-        displayRandomBrewery(randomBrewery[0])
+        //remove unnecessary information from the API Obj
+        const breweryObj = filterBreweryObjKeys(randomBrewery[0])
+        displayRandomBrewery(breweryObj)
     })
 }
 
@@ -114,59 +116,64 @@ const displayBreweryDetails = (brewery) => {
     div.appendChild(favoriteButton)
     div.appendChild(userNotes)
           
-
-    // fetch(localFavoriteUrl)
-    // .then(res => res.json())
-    // .then(localDB => localDB.forEach(brewery => console.log(brewery.id)))
-
-    //remove unnecessary information from the API Obj
-    breweryObj = filterBreweryObjKeys(brewery)
-
     //Button to toggle Visited status and add to Visited list
     visitedButton.addEventListener('click', (e) => {
-        console.log(breweryObj)
+        console.log(brewery)
         if(visitedButton.textContent == `Add to Visited Breweries`){
             visitedButton.textContent = `Remove from Visited Breweries`
-            breweryObj.visited = true
-            addBreweryToLocal(localUrl, breweryObj)
-            console.log(breweryObj)
+            brewery.visited = true
+            checkLocalDB(brewery, {visited: true})
+            console.log(brewery)
         } else if (visitedButton.textContent == `Remove from Visited Breweries`) {
-            breweryObj.visited = false
+            brewery.visited = false
             visitedButton.textContent = `Add to Visited Breweries`
-            console.log(breweryObj)
+            checkLocalDB(brewery, {visited: false})
+            console.log(brewery)
         }
     })
    
     //Button to toggle Favorites status and add to Favorites list
     favoriteButton.addEventListener('click', (e) => {
         if(favoriteButton.textContent == `Add to Favorites`){
-            breweryObj.favorite = true
-            breweryObj.visited = true
+            brewery.favorite = true
+            brewery.visited = true
             favoriteButton.textContent = `Remove from Favorites`
-            addBreweryToLocal(localUrl, breweryObj)
+            // addBreweryToLocal(localUrl, brewery)
+            checkLocalDB(brewery, {favorite: true, visited: true})
         } else if (favoriteButton.textContent == `Remove from Favorites`) {
-            breweryObj.favorite = false
+            brewery.favorite = false
+            checkLocalDB(brewery, {favorite: false})
             favoriteButton.textContent = `Add to Favorites`
            
         }
-        console.log(breweryObj.id)
     })
 
         newNotesButton.addEventListener('click', (e) => {
             e.preventDefault()
-            breweryObj.notes.push(newNotes.value)
-            updateLocalBrewery(`http://localhost:3000/breweries/${breweryObj.id}`, {notes: newNotes.value})
-            console.log(breweryObj)
+            brewery.notes = newNotes.value
+            console.log(brewery)
+            // updateLocalBrewery(`http://localhost:3000/breweries/${brewery.id}`, {notes: newNotes.value})
+            displayBreweryDetails(brewery)
             addNotesForm.reset()
-
-
+            checkLocalDB(brewery.externalId, {notes: newNotes.value})
         })
+}
 
+//Check if brewery is in local DB
+const checkLocalDB = (brewery, patchKeyValue) => {
+    fetch(localUrl)
+    .then(res => res.json())
+    .then(localBreweryArray => checkLocalId(localBreweryArray, brewery, patchKeyValue))
+}
 
-
-
-
-}    
+const checkLocalId = (localBreweryArr, brewery, patchKeyValue ) => {
+    const existingBrewery = localBreweryArr.find(breweryOnDB => brewery.externalId === breweryOnDB.externalId)
+    if(existingBrewery !== undefined){
+        updateLocalBrewery(`http://localhost:3000/breweries/${existingBrewery.id}`, patchKeyValue)
+    } else {
+        addBreweryToLocal(localUrl, brewery)
+    }
+}
 
 //Function makes the phone number easier to read
 const phoneNumberFormat = (brewery) => {
@@ -253,10 +260,10 @@ const getDeleteConfig = (url) => {
     return fetch(url, configurationObj)
 }
 
-//Create new Obj to remove unnecessary keys from API provided Obj
+// Create new Obj to remove unnecessary keys from API provided Obj
 const filterBreweryObjKeys = (brewery) => {
     const localBreweryObj = {
-        externalId: brewery.id,
+        externalId:brewery.id, 
         name: brewery.name,
         type: brewery.brewery_type,
         street: brewery.street,
@@ -268,10 +275,11 @@ const filterBreweryObjKeys = (brewery) => {
         website: brewery.website_url,
         visited: null,
         favorite: null,
-        notes: [],
+        notes: '',
     }
     return localBreweryObj
 }
+
 
 //Function to clear display and load in Favorites list
 const showFavoritesList = () => {
@@ -416,7 +424,6 @@ const getSearchResults = (optionValue, searchQuery) =>{
     fetch(`https://api.openbrewerydb.org/breweries?by_${optionValue}=${searchQuery}&per_page=50`)
     .then(res => res.json())
     .then(searchResults => {
-        console.log(`https://api.openbrewerydb.org/breweries?by_${optionValue}=${searchQuery}&per_page=50`)
         resultHandler(searchResults)})
 }
 
@@ -432,7 +439,13 @@ const displaySearchResults = (searchResult) => {
 
     resultContainer.appendChild(displayResult)
 
-
+    displayResult.addEventListener('click', (e) => {
+        resetDisplay()
+        const mainList = document.createElement('ul')
+        mainList.id = `visited-list`
+        mainContainer.appendChild(mainList)
+        displayBreweryDetails(searchResult)
+    })
 }
 
 const clearResultsList = () => {

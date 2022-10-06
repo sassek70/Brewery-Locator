@@ -12,8 +12,6 @@ The core features of your MVP:
     Users will be able to add their favorite Breweries to a 'Favorites list'
     Users will be able to toggle whether or not they have visited a Brewery
     Users will be able to search for a Brewery by Name, Location, Type
-    Users will have the option to view the entire list of Breweries in the API
-        List will show basic details on mouse-over: Name, Type & City.
         When user selects a Brewery, additional details will be displayed; full address, phone#, link to website
     Users will be able to submit reviews about a favorited/visited brewery
     
