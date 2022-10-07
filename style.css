@@ -1,16 +1,23 @@
 body {
+    display: flex;
+    flex-direction: column;
     background-image: linear-gradient(rgba(255, 191, 0, 0.05), rgb(255, 191, 0.5));
     height: 100vh;
+    align-items: center;
 }
 
 #welcome {
-    margin: auto;
-    width: 50%;
+    /* background-color: aqua; */
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .navigation {
     padding: 1vmin;
-    border: 2px solid black;
+    margin-bottom: 1rem;
+    /* border: 2px solid black; */
 }
 
 .navigation:hover {
@@ -20,28 +27,79 @@ body {
 
 #tabs {
     display: inline-flex;
-    border : 1px solid black;
+    /* border : 1px solid black; */
+}
+
+a {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0 0.5rem
+}
+
+#detail-display a {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+#display-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fffdfd;
+    border: 1px solid lightgray;
+    border-radius: 1.75rem;
+    min-width: 600px;
+    /* justify-content: center; */
+}
+
+#notes-wrapper {
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#notes-wrapper > h3 {
+    text-align: left;
+    width: 100%;
+}
+
+#detail-display > h2{
+    text-align: center;
+}
+
+#detail-display {
+    width: 100%;
 }
 
 .buttons {
     margin: 4px;
-    
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    border: none;
+    border: 1px solid black;   
 }
 
 .buttons:hover {
     cursor: pointer;
     background-color: burlywood;
+    outline: none;
+    border-radius: 0.5rem;
+
 }
 
 #notes {
     border: 1px solid black;
-    max-width: 400px;
+    width: 100%;
     min-height: 100px;
 }
 
 ul {
     display: flexbox;
-    max-height: 120px;
+    max-height: 250px;
     max-width: 300px;
     overflow-y:auto;
     border: 2px solid black;
@@ -103,6 +161,7 @@ li:hover {
 #input-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     
 }
 
@@ -110,18 +169,13 @@ li:hover {
     margin:auto;
     position: relative;
     text-align: center;
-}
+} */
 
 #search-input {
-    margin: auto;
-    position: relative;
+    flex-grow: 1;
 }
 
-#search-button {
+/* #search-button {
     margin: auto;
 
 } */
-
-#notes {
-    min-width: 345px;
-}

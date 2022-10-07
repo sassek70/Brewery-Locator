@@ -339,7 +339,7 @@
       "website": "http://www.easternshorebrewing.com",
       "visited": true,
       "favorite": true,
-      "notes": "",
+      "notes": "gasfdgs\nafasdf\n",
       "id": 20
     },
     {
@@ -405,6 +405,22 @@
       "favorite": true,
       "notes": "",
       "id": 24
+    },
+    {
+      "externalId": "man-skirt-brewing-hackettstown",
+      "name": "Man Skirt Brewing",
+      "type": "micro",
+      "street": "144 Main St",
+      "city": "Hackettstown",
+      "state": "New Jersey",
+      "zipCode": "07840-1930",
+      "country": "United States",
+      "phone": "9089890286",
+      "website": "http://www.manskirtbrewing.com",
+      "visited": null,
+      "favorite": null,
+      "notes": "k;lasdfjlk\nadsf\nasdf\n",
+      "id": 25
     }
   ]
 }

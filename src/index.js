@@ -66,7 +66,7 @@ const displayBreweryDetails = (brewery) => {
     resetDisplay()
     
     //Create all elements when invoked
-    const div = document.createElement('div')
+    const detailDisplay = document.createElement('div')
     const title = document.createElement('h2')
     const address = document.createElement('p')
     const country = document.createElement('p')
@@ -82,42 +82,55 @@ const displayBreweryDetails = (brewery) => {
     // const newNotes = document.createElement('textarea')
     const newNotesButton = document.createElement('button')
     const userNotesLabel = document.createElement('h3')
+    const notesWrapper = document.createElement('div')
+    const websiteLink = document.createElement('a')
     
     
     //update element data to match currently displayed brewery
-    div.id = `detail-display`
+    detailDisplay.id = `detail-display`
     visitedButton.id = `visited-button`
     visitedButton.classList = "buttons"
     favoriteButton.id = `favorite-button`
     favoriteButton.classList = "buttons"
-    userNotes.id = `notes`
+    notesWrapper.id = "notes-wrapper"
     title.textContent = brewery.name
     address.textContent = `Address: ${brewery.street || ``}, ${brewery.city || ``}, ${brewery.state || ``} ${brewery.postal_code || ``}`
     country.textContent = `Country of Origin: ${brewery.country}`
     phone.textContent = `Phone: ${phoneNumberFormat(brewery)}`      
-    website.textContent = `Website: ${brewery.website_url || 'Not Available'}`
+    website.textContent = `Website: `
+    if(brewery.website?.length > 0){
+        websiteLink.href = `${brewery.website}`
+        websiteLink.target = "_blank"
+        websiteLink.rel = "noreferrer nofollow noopener"
+        websiteLink.textContent = `${brewery.website}`
+    } else {
+        website.textContent = "Website: Not Available"
+    }
     type.textContent = `Brewery Type: ${brewery.brewery_type || 'Not Available'}`
     visitedButton.textContent = checkVisitedStatus(brewery)
     favoriteButton.textContent = checkFavoriteStatus(brewery)
-    newNotesButton.textContent = `Add Note`
+    newNotesButton.textContent = `Save Notes`
     newNotesButton.className = "buttons"
     userNotes.textContent = brewery.notes
     userNotesLabel.textContent = "Notes:"
+    userNotes.id = "notes"
     
     //append all to DOM container      
-    mainContainer.appendChild(div)
-    div.appendChild(title)
-    div.appendChild(address)
-    div.appendChild(country)
-    div.appendChild(phone)
-    div.appendChild(website)
-    div.appendChild(type)
-    // div.appendChild(addNotesForm)
-    div.appendChild(visitedButton)
-    div.appendChild(favoriteButton)
-    div.appendChild(userNotesLabel)
-    div.appendChild(userNotes)
-    div.appendChild(newNotesButton)
+    mainContainer.appendChild(detailDisplay)
+    detailDisplay.appendChild(title)
+    detailDisplay.appendChild(address)
+    detailDisplay.appendChild(country)
+    detailDisplay.appendChild(phone)
+    detailDisplay.appendChild(website)
+    website.appendChild(websiteLink)
+    detailDisplay.appendChild(type)
+    // detailDisplay.appendChild(addNotesForm)
+    detailDisplay.appendChild(visitedButton)
+    detailDisplay.appendChild(favoriteButton)
+    detailDisplay.appendChild(notesWrapper)
+    notesWrapper.appendChild(userNotesLabel)
+    notesWrapper.appendChild(userNotes)
+    notesWrapper.appendChild(newNotesButton)
     
     // if(brewery.visited == true || brewery.favorite == true){
     //     addNotesForm.appendChild(userNotes)
