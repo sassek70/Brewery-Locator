@@ -451,7 +451,10 @@ const getSearchResults = (optionValue, searchQuery) =>{
     fetch(`https://api.openbrewerydb.org/breweries?by_${optionValue}=${searchQuery}&per_page=50`)
     .then(res => res.json())
     .then(searchResults => {
-        resultHandler(searchResults)})
+        if (searchResults.length >= 1){
+        resultHandler(searchResults)
+        } else {noResults()}
+    })
 }
 
 //Function passes each search result to displaySearchResults to create a list
@@ -484,3 +487,11 @@ const clearResultsList = () => {
     }
 }
 
+const noResults = () => {
+    const resultsContainer = document.getElementById('results-container')
+    const displayResult = document.createElement('p')
+
+    displayResult.textContent = "No breweries found"
+
+    resultsContainer.appendChild(displayResult)
+}
