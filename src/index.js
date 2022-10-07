@@ -95,17 +95,19 @@ const displayBreweryDetails = (brewery) => {
     country.textContent = `Country of Origin: ${brewery.country}`
     phone.textContent = `Phone: ${phoneNumberFormat(brewery)}`      
     website.textContent = `Website: `
+    
     //Check to see if a brewery has a website and set <a> 
     if(brewery.website?.length > 0){
         websiteLink.href = `${brewery.website}`
         //Force link to open in a new tab
         websiteLink.target = "_blank"
-        //Info I found make it seem like good practice to include these tags for security
+        //Info I found made it seem like good practice to include these tags for security
         websiteLink.rel = "noreferrer nofollow noopener"
         websiteLink.textContent = `${brewery.website}`
     } else {
         website.textContent = "Website: Not Available"
     }
+
     type.textContent = `Brewery Type: ${brewery.type || 'Not Available'}`
     visitedButton.textContent = checkVisitedStatus(brewery)
     favoriteButton.textContent = checkFavoriteStatus(brewery)
@@ -165,6 +167,7 @@ const displayBreweryDetails = (brewery) => {
             addNotesForm.reset()
             checkLocalDB(brewery, {notes: brewery.notes})
         })
+        
 }
 
 //Check if brewery is in local DB
@@ -312,6 +315,15 @@ const displayFavorites = (breweryObj) => {
     const newListItem = document.createElement('li')
     newListItem.textContent = breweryObj.name
     listContainer.appendChild(newListItem)
+
+    newListItem.addEventListener('mouseover', (e) => {
+        newListItem.style.backgroundColor =  "rgb(165, 122, 2)";
+        newListItem.style.cursor = "pointer";
+    })
+    newListItem.addEventListener('mouseout', (e) => {
+        newListItem.style.backgroundColor = "#fffdfd"
+    })
+
     newListItem.addEventListener('click', (e) => {
         displayBreweryDetails(breweryObj)
     })
@@ -350,11 +362,23 @@ const displayVisited = (breweryObj) => {
     const newListItem = document.createElement('li')
     newListItem.textContent = breweryObj.name
     listContainer.appendChild(newListItem)
+    
+    //Change style with Javascript instead of CSS
+    newListItem.addEventListener('mouseover', (e) => {
+        newListItem.style.backgroundColor =  "rgb(165, 122, 2)";
+        newListItem.style.cursor = "pointer";
+    })
+
+    //Reset style with Javascript
+    newListItem.addEventListener('mouseout', (e) => {
+        newListItem.style.backgroundColor = "#fffdfd"
+    })
+
     newListItem.addEventListener('click', (e) => {
         displayBreweryDetails(breweryObj)
     })
 }
-//#region check if brewery is on favorite/visited lists
+
 const checkFavoriteStatus = (breweryObj) => {
     if(breweryObj.favorite == true){
         return `Remove from Favorites`
@@ -370,7 +394,6 @@ const checkVisitedStatus = (breweryObj) => {
         return `Add to Visited Breweries`
     }
 }
-//#endregion
 
 //Display search form
 const showSearchPage = () => {
@@ -475,7 +498,7 @@ const displaySearchResults = (searchResult) => {
     resultContainer.appendChild(displayResult)
 
     //Add event to each search result to display full details
-    displayResult.addEventListener('click', (e) => {
+    displayResult.addEventListener('dblclick', (e) => {
         resetDisplay()
         const breweryObj = filterBreweryObjKeys(searchResult)
         displayBreweryDetails(breweryObj)
@@ -490,6 +513,7 @@ const clearResultsList = () => {
     }
 }
 
+//Function to let user know that nothing matched their search
 const noResults = () => {
     const resultsContainer = document.getElementById('results-container')
     const displayResult = document.createElement('p')

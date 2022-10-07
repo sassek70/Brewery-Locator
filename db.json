@@ -95,6 +95,54 @@
       "favorite": false,
       "notes": "Brewed in Iceland!\n",
       "id": 6
+    },
+    {
+      "externalId": "angry-erik-brewing-lafayette",
+      "name": "Angry Erik Brewing",
+      "type": "micro",
+      "street": "10 Millpond Dr Unit 8",
+      "city": "Lafayette",
+      "state": "New Jersey",
+      "zipCode": "07848-3825",
+      "country": "United States",
+      "phone": "8624329003",
+      "website": "http://www.angryerik.com",
+      "visited": true,
+      "favorite": true,
+      "notes": "",
+      "id": 7
+    },
+    {
+      "externalId": "millercoors-brewing-co-trenton-trenton",
+      "name": "MillerCoors Brewing Co - Trenton",
+      "type": "large",
+      "street": "2525 Wayne Madison Rd",
+      "city": "Trenton",
+      "state": "Ohio",
+      "zipCode": "45067-9760",
+      "country": "United States",
+      "phone": "5138964601",
+      "website": "http://www.millerbrewing.com",
+      "visited": true,
+      "favorite": true,
+      "notes": "",
+      "id": 8
+    },
+    {
+      "externalId": "birravino-red-bank",
+      "name": "Birravino",
+      "type": "brewpub",
+      "street": "183 Riverside Ave",
+      "city": "Red Bank",
+      "state": "New Jersey",
+      "zipCode": "07701-1015",
+      "country": "United States",
+      "phone": "7328425990",
+      "website": "http://www.birravino.com",
+      "visited": true,
+      "favorite": true,
+      "notes": "",
+      "id": 9
     }
   ]
 }
