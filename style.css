@@ -4,20 +4,43 @@ body {
     background-image: linear-gradient(rgba(255, 191, 0, 0.05), rgb(255, 191, 0.5));
     height: 100vh;
     align-items: center;
+    background-image: url('https://images.unsplash.com/photo-1528823872057-9c018a7a7553?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: fantasy;
+    font-weight: 300;   
 }
 
 #welcome {
-    /* background-color: aqua; */
+
     text-align: center;
     margin-bottom: 1rem;
     width: 100%;
     max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fffdfd;
+    border: 1px solid lightgray;
+    border-radius: 1.75rem;
+    max-width: 600px;
+    opacity: 0.8;
 }
 
 .navigation {
-    padding: 1vmin;
     margin-bottom: 1rem;
-    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fffdfd;
+    border: 1px solid lightgray;
+    border-radius: 1.75rem;
+    max-width: 500px;
+    font-size: 1.15rem;
+    opacity: 0.8;
 }
 
 .navigation:hover {
@@ -27,11 +50,10 @@ body {
 
 #tabs {
     display: inline-flex;
-    /* border : 1px solid black; */
 }
 
 a {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin: 0 0.5rem
 }
@@ -39,6 +61,7 @@ a {
 #detail-display a {
     font-size: 1rem;
     font-weight: normal;
+    
 }
 
 #display-area {
@@ -50,11 +73,10 @@ a {
     border: 1px solid lightgray;
     border-radius: 1.75rem;
     min-width: 600px;
-    /* justify-content: center; */
+    opacity: 0.8;
 }
 
 #notes-wrapper {
-    /* background-color: aqua; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,13 +110,14 @@ a {
     background-color: burlywood;
     outline: none;
     border-radius: 0.5rem;
-
 }
 
 #notes {
     border: 1px solid black;
     width: 100%;
     min-height: 100px;
+    font-size: large;
+    font-family: fantasy;
 }
 
 ul {
@@ -169,17 +192,6 @@ li:hover {
     
 }
 
-/* #search-option {
-    margin:auto;
-    position: relative;
-    text-align: center;
-} */
-
 #search-input {
     flex-grow: 1;
 }
-
-/* #search-button {
-    margin: auto;
-
-} */

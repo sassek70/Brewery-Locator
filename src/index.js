@@ -217,6 +217,9 @@ const resetDisplayAll =() => {
     if (document.getElementById('results-container')) {
         document.getElementById('results-container').remove()
     }
+    if (document.getElementById('list-title')) {
+        document.getElementById('list-title').remove()
+    }
 }
 
 //Function to clear details but keep favorite/visited list displayed
