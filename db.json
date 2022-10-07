@@ -385,8 +385,8 @@
       "country": "United States",
       "phone": "7349132730",
       "website": "http://www.jollypumpkin.com",
-      "visited": true,
-      "favorite": true,
+      "visited": false,
+      "favorite": false,
       "notes": "",
       "id": 23
     },
@@ -401,7 +401,7 @@
       "country": "United States",
       "phone": "9373712176",
       "website": null,
-      "visited": true,
+      "visited": false,
       "favorite": true,
       "notes": "",
       "id": 24
@@ -421,6 +421,22 @@
       "favorite": null,
       "notes": "k;lasdfjlk\nadsf\nasdf\n",
       "id": 25
+    },
+    {
+      "externalId": "brix-city-brewing-little-ferry",
+      "name": "Brix City Brewing",
+      "type": "micro",
+      "street": "4 Alsan Way",
+      "city": "Little Ferry",
+      "state": "New Jersey",
+      "zipCode": "07643-1001",
+      "country": "United States",
+      "phone": "2014400865",
+      "website": "http://www.brixcitybrewing.com",
+      "visited": true,
+      "favorite": true,
+      "notes": "afasfsad\n",
+      "id": 26
     }
   ]
 }

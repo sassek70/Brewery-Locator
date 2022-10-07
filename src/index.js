@@ -106,7 +106,7 @@ const displayBreweryDetails = (brewery) => {
     } else {
         website.textContent = "Website: Not Available"
     }
-    type.textContent = `Brewery Type: ${brewery.brewery_type || 'Not Available'}`
+    type.textContent = `Brewery Type: ${brewery.type || 'Not Available'}`
     visitedButton.textContent = checkVisitedStatus(brewery)
     favoriteButton.textContent = checkFavoriteStatus(brewery)
     newNotesButton.textContent = `Save Notes`
