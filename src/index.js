@@ -224,6 +224,9 @@ const resetDisplay =() => {
     if (document.getElementById('detail-display')) {
         document.getElementById('detail-display').remove()
     }
+    if (document.getElementById('list-title')) {
+        document.getElementById('list-title').remove()
+    }
 }
 
 //POST to local db.json
@@ -277,7 +280,13 @@ const filterBreweryObjKeys = (brewery) => {
 const showFavoritesList = () => {
     resetDisplay()
     const mainList = document.createElement('ul')
+    const listTitle = document.createElement('h2')
+
+    listTitle.id = 'list-title'
+    listTitle.textContent = 'Favorite breweries'
     mainList.id = `favorites-list`
+
+    mainContainer.appendChild(listTitle)
     mainContainer.appendChild(mainList)
     getFavorites(localUrl)
 }
@@ -309,7 +318,13 @@ const displayFavorites = (breweryObj) => {
 const showVisitedList = () => {
     resetDisplay()
     const mainList = document.createElement('ul')
+    const listTitle = document.createElement('h2')
+
+    listTitle.id = 'list-title'
+    listTitle.textContent = 'Breweries you\'ve visited'
     mainList.id = `visited-list`
+
+    mainContainer.appendChild(listTitle)
     mainContainer.appendChild(mainList)
     getVisited(localUrl)
 }

@@ -12,8 +12,8 @@
       "phone": "5706224141",
       "website": "http://www.yuengling.com",
       "visited": true,
-      "favorite": true,
-      "notes": "",
+      "favorite": false,
+      "notes": "It was built into the side of a mountain\n",
       "id": 1
     },
     {
@@ -92,7 +92,7 @@
       "phone": "4242180179",
       "website": "http://einstokbeer.com",
       "visited": null,
-      "favorite": true,
+      "favorite": false,
       "notes": "Brewed in Iceland!\n",
       "id": 6
     }
