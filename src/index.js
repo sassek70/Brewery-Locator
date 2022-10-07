@@ -1,3 +1,4 @@
+//Global Variables
 const baseUrl = `https://api.openbrewerydb.org/breweries`
 const randomUrl = `https://api.openbrewerydb.org/breweries/random`
 let localUrl = `http://localhost:3000/breweries`
@@ -8,6 +9,7 @@ const mainContainer = document.getElementById('display-area')
 
 // 163 pages, 8,106 breweries in database
 
+//When the page first loads, display a random brewery from the external database
 document.addEventListener('DOMContentLoaded', (e) => {
     getRandomBrewery(randomUrl)
 })
@@ -72,18 +74,14 @@ const displayBreweryDetails = (brewery) => {
     const phone = document.createElement('p')
     const website = document.createElement('p')
     const type = document.createElement('p')        
-    // const visitedStatus = document.createElement('p')
     const visitedButton = document.createElement('button')
-    // const favoriteStatus = document.createElement('p')
     const favoriteButton = document.createElement('button')
     const userNotes = document.createElement('textarea')
     const addNotesForm = document.createElement('form')
-    // const newNotes = document.createElement('textarea')
     const newNotesButton = document.createElement('button')
     const userNotesLabel = document.createElement('h3')
     const notesWrapper = document.createElement('div')
     const websiteLink = document.createElement('a')
-    
     
     //update element data to match currently displayed brewery
     detailDisplay.id = `detail-display`
@@ -97,9 +95,12 @@ const displayBreweryDetails = (brewery) => {
     country.textContent = `Country of Origin: ${brewery.country}`
     phone.textContent = `Phone: ${phoneNumberFormat(brewery)}`      
     website.textContent = `Website: `
+    //Check to see if a brewery has a website and set <a> 
     if(brewery.website?.length > 0){
         websiteLink.href = `${brewery.website}`
+        //Force link to open in a new tab
         websiteLink.target = "_blank"
+        //Info I found make it seem like good practice to include these tags for security
         websiteLink.rel = "noreferrer nofollow noopener"
         websiteLink.textContent = `${brewery.website}`
     } else {
@@ -123,7 +124,6 @@ const displayBreweryDetails = (brewery) => {
     detailDisplay.appendChild(website)
     website.appendChild(websiteLink)
     detailDisplay.appendChild(type)
-    // detailDisplay.appendChild(addNotesForm)
     detailDisplay.appendChild(visitedButton)
     detailDisplay.appendChild(favoriteButton)
     detailDisplay.appendChild(notesWrapper)
@@ -148,7 +148,6 @@ const displayBreweryDetails = (brewery) => {
     favoriteButton.addEventListener('click', (e) => {
         if(favoriteButton.textContent == `Add to Favorites`){
             brewery.favorite = true
-            brewery.visited = true
             favoriteButton.textContent = `Remove from Favorites`
             checkLocalDB(brewery, {favorite: true, visited: true})
         } else if (favoriteButton.textContent == `Remove from Favorites`) {
@@ -158,7 +157,7 @@ const displayBreweryDetails = (brewery) => {
            
         }
     })
-
+        //Updates the Notes section and PATCHs the change
         newNotesButton.addEventListener('click', (e) => {
             e.preventDefault()
             brewery.notes = userNotes.value + '\n'
@@ -239,11 +238,6 @@ const updateLocalBrewery = (url, body) => {
     return fetch(url, configurationObj)
 }
 
-//DELETE from local db.json
-const removeLocalBrewery = (url) => {
-    const configurationObj= getDeleteConfig(url)
-    return fetch(url, configurationObj)
-}
 
 //Re-usable POST/PATCHconfig set up
 const getConfig = (verb, body) => {
@@ -258,16 +252,6 @@ const getConfig = (verb, body) => {
     return configurationObj
 }
 
-//Re-usable DELETE config set up
-const getDeleteConfig = (url) => {
-    const configurationObj = {
-        method: `DELETE`,
-        headers: {
-            "Accept": "application/json",
-        },
-    }
-    return fetch(url, configurationObj)
-}
 
 // Create new Obj to remove unnecessary keys from API provided Obj
 const filterBreweryObjKeys = (brewery) => {
@@ -288,7 +272,6 @@ const filterBreweryObjKeys = (brewery) => {
     }
     return localBreweryObj
 }
-
 
 //Function to clear display and load in Favorites list
 const showFavoritesList = () => {
@@ -353,8 +336,7 @@ const displayVisited = (breweryObj) => {
         displayBreweryDetails(breweryObj)
     })
 }
-
-
+//#region check if brewery is on favorite/visited lists
 const checkFavoriteStatus = (breweryObj) => {
     if(breweryObj.favorite == true){
         return `Remove from Favorites`
@@ -370,10 +352,14 @@ const checkVisitedStatus = (breweryObj) => {
         return `Add to Visited Breweries`
     }
 }
+//#endregion
 
-
+//Display search form
 const showSearchPage = () => {
+    //Clear display area
     resetDisplayAll()
+
+    //Create search form elements
     const searchForm = document.createElement('form')
     const searchLabel = document.createElement('label')
     const searchInput = document.createElement('input')
@@ -387,7 +373,7 @@ const showSearchPage = () => {
     const searchTypesList = document.createElement('p')
     const inputContainer = document.createElement('div')
     
-
+    //Add values to search elements
     searchForm.id = 'search-form'
     searchLabel.textContent = 'Find your next brew:'
     searchLabel.id = 'search-label'
@@ -412,9 +398,8 @@ const showSearchPage = () => {
     searchByName.textContent = 'Name'
     searchByType.value = 'type'
     searchByType.textContent = 'Type'
-    
 
-
+    //Append search form elements
     mainContainer.appendChild(searchForm)
     searchForm.appendChild(searchLabel)
     searchForm.appendChild(searchDirection)
@@ -428,23 +413,25 @@ const showSearchPage = () => {
     inputContainer.appendChild(searchInput)    
     inputContainer.appendChild(searchButton)
        
-
-
+    //Set search parameters and invoke database query
     searchButton.addEventListener('click', (e) => {
         e.preventDefault()
         const optionValue = searchOption.value
         const searchQuery = searchInput.value
+        //Check to see if a previous search has been conducted and clear results before new search
         if(!document.getElementById('results-container')){
             const resultsContainer = document.createElement('ol')
             resultsContainer.id = 'results-container'
             mainContainer.appendChild(resultsContainer) 
         }
         clearResultsList()
+        resetDisplay()
         getSearchResults(optionValue, searchQuery)
         searchForm.reset()
     })
 }
 
+//Send request to external API with search parameters
 const getSearchResults = (optionValue, searchQuery) =>{
     fetch(`https://api.openbrewerydb.org/breweries?by_${optionValue}=${searchQuery}&per_page=50`)
     .then(res => res.json())
@@ -452,10 +439,12 @@ const getSearchResults = (optionValue, searchQuery) =>{
         resultHandler(searchResults)})
 }
 
+//Function passes each search result to displaySearchResults to create a list
 const resultHandler = (searchResults) => {
     searchResults.forEach(result => displaySearchResults(result))
 }
 
+//Display list of search results
 const displaySearchResults = (searchResult) => {
     const resultContainer = document.getElementById('results-container')
     const displayResult = document.createElement('li')
@@ -464,6 +453,7 @@ const displaySearchResults = (searchResult) => {
 
     resultContainer.appendChild(displayResult)
 
+    //Add event to each search result to display full details
     displayResult.addEventListener('click', (e) => {
         resetDisplay()
         const breweryObj = filterBreweryObjKeys(searchResult)
@@ -471,6 +461,7 @@ const displaySearchResults = (searchResult) => {
     })
 }
 
+//Function clears list elements of previous search
 const clearResultsList = () => {
     const resultsContainer = document.getElementById('results-container')
     while(resultsContainer.firstChild){

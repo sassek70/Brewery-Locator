@@ -113,6 +113,10 @@ ol {
     border: 2px solid black;
 }
 
+#results-container {
+    padding: 0 3rem;
+}
+
 li {
     padding: 5px;
 }
