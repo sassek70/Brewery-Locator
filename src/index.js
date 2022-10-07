@@ -66,7 +66,7 @@ const displayBreweryDetails = (brewery) => {
     resetDisplay()
     
     //Create all elements when invoked
-    const div = document.createElement('div')
+    const detailDisplay = document.createElement('div')
     const title = document.createElement('h2')
     const address = document.createElement('p')
     const country = document.createElement('p')
@@ -77,45 +77,73 @@ const displayBreweryDetails = (brewery) => {
     const visitedButton = document.createElement('button')
     // const favoriteStatus = document.createElement('p')
     const favoriteButton = document.createElement('button')
-    const userNotes = document.createElement('p')
+    const userNotes = document.createElement('textarea')
     const addNotesForm = document.createElement('form')
-    const newNotes = document.createElement('input')
+    // const newNotes = document.createElement('textarea')
     const newNotesButton = document.createElement('button')
+    const userNotesLabel = document.createElement('h3')
+    const notesWrapper = document.createElement('div')
+    const websiteLink = document.createElement('a')
     
     
     //update element data to match currently displayed brewery
-    div.id = `detail-display`
+    detailDisplay.id = `detail-display`
     visitedButton.id = `visited-button`
+    visitedButton.classList = "buttons"
     favoriteButton.id = `favorite-button`
-    userNotes.id = `notes`
+    favoriteButton.classList = "buttons"
+    notesWrapper.id = "notes-wrapper"
     title.textContent = brewery.name
     address.textContent = `Address: ${brewery.street || ``}, ${brewery.city || ``}, ${brewery.state || ``} ${brewery.postal_code || ``}`
     country.textContent = `Country of Origin: ${brewery.country}`
     phone.textContent = `Phone: ${phoneNumberFormat(brewery)}`      
-    website.textContent = `Website: ${brewery.website_url || 'Not Available'}`
+    website.textContent = `Website: `
+    if(brewery.website?.length > 0){
+        websiteLink.href = `${brewery.website}`
+        websiteLink.target = "_blank"
+        websiteLink.rel = "noreferrer nofollow noopener"
+        websiteLink.textContent = `${brewery.website}`
+    } else {
+        website.textContent = "Website: Not Available"
+    }
     type.textContent = `Brewery Type: ${brewery.brewery_type || 'Not Available'}`
     visitedButton.textContent = checkVisitedStatus(brewery)
     favoriteButton.textContent = checkFavoriteStatus(brewery)
-    newNotesButton.textContent = `Add Note`
+    newNotesButton.textContent = `Save Notes`
+    newNotesButton.className = "buttons"
     userNotes.textContent = brewery.notes
+    userNotesLabel.textContent = "Notes:"
+    userNotes.id = "notes"
     
     //append all to DOM container      
-    mainContainer.appendChild(div)
-    div.appendChild(title)
-    div.appendChild(address)
-    div.appendChild(country)
-    div.appendChild(phone)
-    div.appendChild(website)
-    div.appendChild(type)
-    div.appendChild(addNotesForm)
-    addNotesForm.appendChild(newNotes)
-    addNotesForm.appendChild(newNotesButton)
-    // div.appendChild(visitedStatus)
-    div.appendChild(visitedButton)
-    // div.appendChild(favoriteStatus)
-    div.appendChild(favoriteButton)
-    div.appendChild(userNotes)
-          
+    mainContainer.appendChild(detailDisplay)
+    detailDisplay.appendChild(title)
+    detailDisplay.appendChild(address)
+    detailDisplay.appendChild(country)
+    detailDisplay.appendChild(phone)
+    detailDisplay.appendChild(website)
+    website.appendChild(websiteLink)
+    detailDisplay.appendChild(type)
+    // detailDisplay.appendChild(addNotesForm)
+    detailDisplay.appendChild(visitedButton)
+    detailDisplay.appendChild(favoriteButton)
+    detailDisplay.appendChild(notesWrapper)
+    notesWrapper.appendChild(userNotesLabel)
+    notesWrapper.appendChild(userNotes)
+    notesWrapper.appendChild(newNotesButton)
+    
+    // if(brewery.visited == true || brewery.favorite == true){
+    //     addNotesForm.appendChild(userNotes)
+    //     addNotesForm.appendChild(newNotesButton)
+    // }
+    
+    // if(brewery.notes !== ""){
+    //     div.appendChild(userNotesLabel)
+    //     div.appendChild(userNotes)
+    // }
+    
+
+
     //Button to toggle Visited status and add to Visited list
     visitedButton.addEventListener('click', (e) => {
         console.log(brewery)
@@ -138,7 +166,6 @@ const displayBreweryDetails = (brewery) => {
             brewery.favorite = true
             brewery.visited = true
             favoriteButton.textContent = `Remove from Favorites`
-            // addBreweryToLocal(localUrl, brewery)
             checkLocalDB(brewery, {favorite: true, visited: true})
         } else if (favoriteButton.textContent == `Remove from Favorites`) {
             brewery.favorite = false
@@ -150,12 +177,11 @@ const displayBreweryDetails = (brewery) => {
 
         newNotesButton.addEventListener('click', (e) => {
             e.preventDefault()
-            brewery.notes = newNotes.value
+            brewery.notes = userNotes.value + '\n'
             console.log(brewery)
-            // updateLocalBrewery(`http://localhost:3000/breweries/${brewery.id}`, {notes: newNotes.value})
             displayBreweryDetails(brewery)
             addNotesForm.reset()
-            checkLocalDB(brewery.externalId, {notes: newNotes.value})
+            checkLocalDB(brewery, {notes: brewery.notes})
         })
 }
 
@@ -376,14 +402,27 @@ const showSearchPage = () => {
     const searchByCity = document.createElement('option')
     const searchByName = document.createElement('option')
     const searchByType = document.createElement('option')
- 
-
+    const searchDirection = document.createElement('p')
+    const searchTypesList = document.createElement('p')
+    const inputContainer = document.createElement('div')
+    
 
     searchForm.id = 'search-form'
-    searchLabel.textContent = 'Search Breweries By :'
+    searchLabel.textContent = 'Find your next brew:'
+    searchLabel.id = 'search-label'
     searchInput.type = 'text'
     searchInput.name = 'search'
+    searchInput.id = "search-input"
     searchButton.textContent = 'Search'
+    searchButton.id = "search-button"
+    searchButton.classList = "buttons"
+    searchOption.id = "search-option"
+    searchOption.classList = "buttons"
+    searchDirection.id = "search-direction"
+    searchDirection.textContent = "Search by Name, City, State or Type. \n First 50 results are shown."
+    searchTypesList.id = "search-types"
+    searchTypesList.textContent = "Types: micro, nano, regional, brewpub, large, planning, bar, contract, proprietor, closed."
+    inputContainer.id = "input-container"
     searchByState.value = 'state'
     searchByState.textContent = 'State'
     searchByCity.value = 'city'
@@ -396,14 +435,17 @@ const showSearchPage = () => {
 
 
     mainContainer.appendChild(searchForm)
-    searchForm.appendChild(searchLabel)    
-    searchForm.appendChild(searchOption)
+    searchForm.appendChild(searchLabel)
+    searchForm.appendChild(searchDirection)
+    searchForm.appendChild(searchTypesList)
+    searchForm.appendChild(inputContainer)    
+    inputContainer.appendChild(searchOption)
     searchOption.appendChild(searchByCity)
     searchOption.appendChild(searchByState)
     searchOption.appendChild(searchByName)
     searchOption.appendChild(searchByType)
-    searchForm.appendChild(searchInput)    
-    searchForm.appendChild(searchButton)
+    inputContainer.appendChild(searchInput)    
+    inputContainer.appendChild(searchButton)
        
 
 
@@ -411,9 +453,11 @@ const showSearchPage = () => {
         e.preventDefault()
         const optionValue = searchOption.value
         const searchQuery = searchInput.value
-        const resultsContainer = document.createElement('ol')
-        resultsContainer.id = 'results-container'
-        mainContainer.appendChild(resultsContainer) 
+        if(!document.getElementById('results-container')){
+            const resultsContainer = document.createElement('ol')
+            resultsContainer.id = 'results-container'
+            mainContainer.appendChild(resultsContainer) 
+        }
         clearResultsList()
         getSearchResults(optionValue, searchQuery)
         searchForm.reset()
@@ -441,10 +485,8 @@ const displaySearchResults = (searchResult) => {
 
     displayResult.addEventListener('click', (e) => {
         resetDisplay()
-        const mainList = document.createElement('ul')
-        mainList.id = `visited-list`
-        mainContainer.appendChild(mainList)
-        displayBreweryDetails(searchResult)
+        const breweryObj = filterBreweryObjKeys(searchResult)
+        displayBreweryDetails(breweryObj)
     })
 }
 
