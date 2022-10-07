@@ -437,6 +437,38 @@
       "favorite": true,
       "notes": "afasfsad\n",
       "id": 26
+    },
+    {
+      "externalId": "columbus-brewing-co-columbus",
+      "name": "Columbus Brewing Co",
+      "type": "regional",
+      "street": "2555 Harrison Rd",
+      "city": "Columbus",
+      "state": "Ohio",
+      "zipCode": "43204-3511",
+      "country": "United States",
+      "phone": "6142243626",
+      "website": "http://www.columbusbrewing.com",
+      "visited": false,
+      "favorite": false,
+      "notes": "asdf\n",
+      "id": 27
+    },
+    {
+      "externalId": "blue-earl-brewing-company-smyrna",
+      "name": "Blue Earl Brewing Company",
+      "type": "micro",
+      "street": "210 Artisan Dr",
+      "city": "Smyrna",
+      "state": "Delaware",
+      "zipCode": "19977-3715",
+      "country": "United States",
+      "phone": null,
+      "website": "http://www.blueearlbrewing.com",
+      "visited": true,
+      "favorite": false,
+      "notes": "sdf\n",
+      "id": 28
     }
   ]
 }

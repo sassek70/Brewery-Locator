@@ -20,7 +20,6 @@ const getRandomBrewery = () => {
     })
     .then(res => res.json())
     .then(randomBrewery => {
-        console.log(randomBrewery)
         //remove unnecessary information from the API Obj
         const breweryObj = filterBreweryObjKeys(randomBrewery[0])
         displayRandomBrewery(breweryObj)
@@ -131,32 +130,17 @@ const displayBreweryDetails = (brewery) => {
     notesWrapper.appendChild(userNotesLabel)
     notesWrapper.appendChild(userNotes)
     notesWrapper.appendChild(newNotesButton)
-    
-    // if(brewery.visited == true || brewery.favorite == true){
-    //     addNotesForm.appendChild(userNotes)
-    //     addNotesForm.appendChild(newNotesButton)
-    // }
-    
-    // if(brewery.notes !== ""){
-    //     div.appendChild(userNotesLabel)
-    //     div.appendChild(userNotes)
-    // }
-    
-
 
     //Button to toggle Visited status and add to Visited list
     visitedButton.addEventListener('click', (e) => {
-        console.log(brewery)
         if(visitedButton.textContent == `Add to Visited Breweries`){
             visitedButton.textContent = `Remove from Visited Breweries`
             brewery.visited = true
             checkLocalDB(brewery, {visited: true})
-            console.log(brewery)
         } else if (visitedButton.textContent == `Remove from Visited Breweries`) {
             brewery.visited = false
             visitedButton.textContent = `Add to Visited Breweries`
             checkLocalDB(brewery, {visited: false})
-            console.log(brewery)
         }
     })
    
@@ -178,7 +162,6 @@ const displayBreweryDetails = (brewery) => {
         newNotesButton.addEventListener('click', (e) => {
             e.preventDefault()
             brewery.notes = userNotes.value + '\n'
-            console.log(brewery)
             displayBreweryDetails(brewery)
             addNotesForm.reset()
             checkLocalDB(brewery, {notes: brewery.notes})
@@ -336,7 +319,6 @@ const displayFavorites = (breweryObj) => {
     listContainer.appendChild(newListItem)
     newListItem.addEventListener('click', (e) => {
         displayBreweryDetails(breweryObj)
-        console.log(breweryObj)
     })
 }
 
@@ -369,7 +351,6 @@ const displayVisited = (breweryObj) => {
     listContainer.appendChild(newListItem)
     newListItem.addEventListener('click', (e) => {
         displayBreweryDetails(breweryObj)
-        console.log(breweryObj)
     })
 }
 
