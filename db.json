@@ -107,8 +107,8 @@
       "country": "United States",
       "phone": "8624329003",
       "website": "http://www.angryerik.com",
-      "visited": true,
-      "favorite": true,
+      "visited": false,
+      "favorite": false,
       "notes": "",
       "id": 7
     },
@@ -123,8 +123,8 @@
       "country": "United States",
       "phone": "5138964601",
       "website": "http://www.millerbrewing.com",
-      "visited": true,
-      "favorite": true,
+      "visited": false,
+      "favorite": false,
       "notes": "",
       "id": 8
     },
@@ -139,10 +139,42 @@
       "country": "United States",
       "phone": "7328425990",
       "website": "http://www.birravino.com",
-      "visited": true,
-      "favorite": true,
+      "visited": false,
+      "favorite": false,
       "notes": "",
       "id": 9
+    },
+    {
+      "externalId": "common-sense-brewing-bordentown",
+      "name": "Common Sense Brewing",
+      "type": "micro",
+      "street": "102 Farnsworth Ave",
+      "city": "Bordentown",
+      "state": "New Jersey",
+      "zipCode": "08505-1308",
+      "country": "United States",
+      "phone": "6095268651",
+      "website": "http://www.commonsensebrewing.com",
+      "visited": null,
+      "favorite": false,
+      "notes": "",
+      "id": 10
+    },
+    {
+      "externalId": "artisan-owl-brewing-company-ocean-city",
+      "name": "Artisan Owl Brewing Company",
+      "type": "planning",
+      "street": null,
+      "city": "Ocean City",
+      "state": "New Jersey",
+      "zipCode": "08226-4237",
+      "country": "United States",
+      "phone": "2157402057",
+      "website": null,
+      "visited": null,
+      "favorite": false,
+      "notes": "",
+      "id": 11
     }
   ]
 }

@@ -503,6 +503,17 @@ const displaySearchResults = (searchResult) => {
         const breweryObj = filterBreweryObjKeys(searchResult)
         displayBreweryDetails(breweryObj)
     })
+
+        //Change style with Javascript instead of CSS
+        displayResult.addEventListener('mouseover', (e) => {
+            displayResult.style.backgroundColor =  "rgb(165, 122, 2)";
+            displayResult.style.cursor = "pointer";
+        })
+    
+        //Reset style with Javascript
+        displayResult.addEventListener('mouseout', (e) => {
+            displayResult.style.backgroundColor = "#fffdfd"
+        })
 }
 
 //Function clears list elements of previous search
