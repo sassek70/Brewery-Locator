@@ -28,6 +28,9 @@ Challenges you expect to face:
 Stretch Goals:
     User can update missing information
     
+   
+Start the json server with `json-server --watch db.json` and open `index.html` in a browser or with Live Server.
+    
 
 
 
